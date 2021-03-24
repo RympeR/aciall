@@ -15,13 +15,13 @@
                 <template #cell(index)="data">
                     <b>{{ data.index + 1 }}</b>
                 </template>
-                <template v-slot:cell(image)="data">
+                <template v-slot:cell(image_png)="data">
                     <table-thumbnail v-if="data.item.image_png"
                                      :id="data.item.id"
                                      :src="data.item.image_png"
                     />
                 </template>
-                <template v-slot:cell(image)="data">
+                <template v-slot:cell(image_png)="data">
                     <table-thumbnail v-if="data.item.image_png"
                         :id="data.item.id"
                         :src="data.item.image_png"

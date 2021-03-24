@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Country, Language, Education, ActionArea, TalkThemes
 
+
 class CountrySerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -32,19 +33,26 @@ class LanguageSerializer(serializers.ModelSerializer):
 class TalkThemesSerializer(serializers.ModelSerializer):
     image_png = serializers.SerializerMethodField()
     image_svg = serializers.SerializerMethodField()
+
     class Meta:
         fields = '__all__'
         model = TalkThemes
-    
+
     def get_image_png(self, image):
-        request = self.context.get('request')
-        photo_url = image.image_png.url
-        return request.build_absolute_uri(photo_url)
+        try:
+            request = self.context.get('request')
+            photo_url = image.image_png.url
+            return request.build_absolute_uri(photo_url)
+        except Exception:
+            return None
 
     def get_image_svg(self, image):
         request = self.context.get('request')
-        photo_url = image.image_svg.url
-        return request.build_absolute_uri(photo_url)
+        try:
+            photo_url = image.image_svg.url
+            return request.build_absolute_uri(photo_url)
+        except Exception:
+            return None
 
 
 class TalkThemesCreateSerializer(serializers.ModelSerializer):

@@ -8,7 +8,7 @@
                                   label="Login"
                     >
                         <b-form-input
-                            v-model="email"
+                            v-model="phone"
                             type="text"
                             required
                             placeholder="Введите ваш Login"
@@ -48,7 +48,7 @@ export default {
     name: 'Login',
     data() {
         return {
-            email: '',
+            phone: '',
             password: '',
             remember: false,
             validation: true,
@@ -58,13 +58,14 @@ export default {
     methods: {
         login($event) {
             $event.preventDefault();
-            let phone = this.email;
+            let phone = this.phone;
             let password = this.password;
             this.$store.dispatch('login', {phone, password})
                 .then(() => {
                     console.log('login')
                     this.validation = true;
                     this.$router.push({name: 'home'})
+                    // this.$router.push('/')
                 })
                 .catch(response => {
                     console.log(response)

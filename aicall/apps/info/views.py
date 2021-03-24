@@ -91,7 +91,7 @@ class ActionAreaListAPI(generics.ListAPIView):
     serializer_class = ActionAreaSerializer
 
 
-class TalkThemesCreate(generics.ListCreateAPIView):
+class TalkThemesCreate(generics.CreateAPIView):
     permission_classes = (permissions.AllowAny, )
     queryset = TalkThemes.objects.all()
     parser_classes = (JSONParser, MultiPartParser, FormParser)
@@ -118,7 +118,7 @@ class TalkThemesAPI(generics.RetrieveDestroyAPIView):
         return context
 
 
-class TalkThemesAPI(generics.ListAPIView):
+class TalkThemesListAPI(generics.ListAPIView):
     permission_classes = (permissions.AllowAny, )
     queryset = TalkThemes.objects.all()
     parser_classes = (JSONParser, MultiPartParser, FormParser)

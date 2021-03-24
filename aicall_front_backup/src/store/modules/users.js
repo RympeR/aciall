@@ -66,7 +66,7 @@ const actions = {
         let confirmDelete = confirm('Удаление этого пользователя также удалит все его запросы, заявки и чаты. Действительно удалить?');
         if (confirmDelete) {
             return new Promise((resolve, reject) => {
-                axios.delete(`${process.env.VUE_APP_HOST}/api/user/delete-profile/${id}/`,
+                axios.delete(`${process.env.VUE_APP_HOST}/api/user/delete-profile/${id}`,
                 {
                     headers: {
                       Authorization: "tset",
@@ -125,8 +125,8 @@ const actions = {
             return new Promise((resolve, reject) => {
 
                 axios
-                    .put(
-                        process.env.VUE_APP_HOST + '/api/user/update-profile/' + obj.id + '/',
+                    .patch(
+                        process.env.VUE_APP_HOST + '/api/user/update-user/' + obj.id,
                         formData, {
                             headers: {
                                 Authorization: "tset",
@@ -148,7 +148,7 @@ const actions = {
         } else {
             return new Promise((resolve, reject) => {
                 axios.post(
-                        process.env.VUE_APP_HOST + '/api/user/create-profile/',
+                        process.env.VUE_APP_HOST + '/api/user/create-user/',
                         formData, {
                             headers: {
                                 Authorization: "tset",

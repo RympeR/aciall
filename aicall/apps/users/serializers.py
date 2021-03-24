@@ -7,6 +7,9 @@ from apps.info.serializers import *
 class TimestampField(serializers.Field):
     def to_representation(self, value):
         return value.timestamp()
+    
+    def to_internal_value(self, value):
+        return value
 
 
 class PhoneSerializer(serializers.ModelSerializer):
@@ -64,6 +67,12 @@ class UserSerializer(serializers.ModelSerializer):
             'date_joined',
             'last_login'
         )
+        model = User
+
+class UserPartialSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        fields = ('password')
         model = User
 
 

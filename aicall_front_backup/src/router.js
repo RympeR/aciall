@@ -23,8 +23,6 @@ import LanguageForm from "@/views/info/language/LanguageForm"
 import ShortcodeList from "@/views/user/shortcode/ShortcodeList"
 import ShortcodeForm from "@/views/user/shortcode/ShortcodeForm"
 
-import QuestionList from "@/views/user/question/QuestionList"
-import QuestionForm from "@/views/user/question/QuestionForm"
 
 import ActionAreaList from "@/views/info/actionarea/ActionAreaList"
 import ActionAreaForm from "@/views/info/actionarea/ActionAreaForm"
@@ -192,31 +190,6 @@ export default new Router({
 					path: 'user/shortcode/update/:id',
 					name: 'shortcode-update',
 					component: ShortcodeForm,
-					meta: {
-						requiresAuth: true
-					}
-				},
-
-				{
-					path: 'user/question/create',
-					name: 'question-create',
-					component: QuestionForm,
-					meta: {
-						requiresAuth: true
-					}
-				},
-				{
-					path: 'user/question',
-					name: 'questions',
-					component: QuestionList,
-					meta: {
-						requiresAuth: true
-					},
-				},
-				{
-					path: 'user/question/update/:id',
-					name: 'question-update',
-					component: QuestionForm,
 					meta: {
 						requiresAuth: true
 					}

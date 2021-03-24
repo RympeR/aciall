@@ -85,7 +85,7 @@ class User(AbstractUser):
         'Username', max_length=255, null=True, blank=True, unique=True)
     first_name = models.CharField(
         'First name', max_length=255, null=True, blank=True)
-    birthday_date = UnixTimeStampField(verbose_name='Date of birthday in timestamp')
+    birthday_date = UnixTimeStampField(verbose_name='Date of birthday in timestamp', null=True, blank=True)
     sex = models.IntegerField('Sex', choices=SEX, null=True, default=0)
     family = models.IntegerField(
         'Family', choices=FAMILY_STATUS, null=True, default=0)
@@ -99,7 +99,6 @@ class User(AbstractUser):
     USERNAME_FIELD = 'phone'
     REQUIRED_FIELDS = [
         'username',
-        'birthday_date',
         'email'
     ]
 
@@ -107,13 +106,10 @@ class User(AbstractUser):
     def _create_user(username, password, birthday_date, email, **extra_fields):
         if not username:
             raise ValueError('The given username must be set')
-        if not birthday_date:
-            raise ValueError('The given birthday_date must be set')
         if not email:
             raise ValueError('The given email must be set')
         user = User.objects.create(
             username=username,
-            birthday_date=birthday_date,
             email=email,
             **extra_fields
         )

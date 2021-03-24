@@ -18,6 +18,7 @@ ALLOWED_HOSTS = [
     '*'
 ]
 
+DATA_UPLOAD_MAX_MEMORY_SIZE = 524288000
 
 # Application definition
 
@@ -132,7 +133,7 @@ USE_L10N = False
 
 LANGUAGE_CODE = 'ru-RU'
 
-USE_TZ = True
+USE_TZ = False
 
 
 STATIC_URL = '/static/'

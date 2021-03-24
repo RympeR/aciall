@@ -59,11 +59,8 @@ class TalkThemes(models.Model):
         blank=True
     )
     
-    image_svg = ProcessedImageField(
+    image_svg = models.ImageField(
         verbose_name='ImageSVG',
-        processors=[ResizeToFill(600, 600)],
-        format='SVG',
-        options={'quality': 100},
         null=True,
         blank=True
     )

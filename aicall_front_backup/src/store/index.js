@@ -7,7 +7,6 @@ import users from './modules/users'
 import admin from './modules/admin'
 
 import country from './modules/country'
-import question from './modules/question'
 import actionarea from './modules/actionarea'
 import talktheme from './modules/talktheme'
 import shortcode from './modules/shortcode'
@@ -24,8 +23,10 @@ export default new Vuex.Store({
         profile: null,
         breadcrumbs: [
             {text: 'Главная', to: {name: 'home'}},
-        ]
+        ],
+        password: localStorage.getItem('password') || null,
     },
+
     mutations: {
         auth_request(state) {
             state.status = 'loading'
@@ -56,8 +57,9 @@ export default new Vuex.Store({
                 axios.post(process.env.VUE_APP_HOST + '/auth/token/login/', formData)
                 .then(response => {
                     console.log(response);
-                    const token = response.data.token;
+                    const token = response.data.auth_token;
                     localStorage.setItem('token', token);
+                    localStorage.setItem('password', user.password);
                     // Vue.prototype.$axios.defaults.common['token'] = token;
                     axios.defaults.headers.common['Authorization'] = token;
                     console.log(axios)
@@ -97,7 +99,6 @@ export default new Vuex.Store({
         users,
         admin,
         country,
-        question,
         actionarea,
         talktheme,
         shortcode,

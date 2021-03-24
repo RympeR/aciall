@@ -19,12 +19,8 @@ urlpatterns = [
     path('delete-test/<int:pk>', TestAPI.as_view()),
     path('get-test/<int:pk>', TestAPI.as_view()),
     path('get-tests', TestListAPI.as_view()),
-    
-    path('create-question/', QuestionCreateAPI.as_view()),
-    path('update-question/<int:pk>', QuestionAPI.as_view()),
-    path('delete-question/<int:pk>', QuestionAPI.as_view()),
-    path('get-question/<int:pk>', QuestionAPI.as_view()),
-    path('get-questions', QuestionListAPI.as_view()),
+
+    path('get-users-list', UsersList.as_view() ,name='UsersList'),
     
     path('create-shortcode/', ShortcodeCreateAPI.as_view()),
     path('update-shortcode/<int:pk>', ShortcodeAPI.as_view()),
@@ -34,4 +30,5 @@ urlpatterns = [
 
     path('update-psychotype/<int:pk>', UserPsycho.as_view()),
 
+    path('update-password/<int:pk>', UpdatePassword.as_view())
 ]

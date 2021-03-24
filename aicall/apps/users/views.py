@@ -7,8 +7,11 @@ from rest_framework import permissions
 from rest_framework.parsers import MultiPartParser, JSONParser, FormParser
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.authtoken.models import Token
+from .raw_sql import UserFilter
+class CsrfExemptSessionAuthentication(SessionAuthentication):
 
-
+    def enforce_csrf(self, request):
+        return
 class PhoneCreateAPI(generics.ListCreateAPIView):
     permission_classes = (permissions.AllowAny, )
     queryset = Phone.objects.all()
@@ -51,35 +54,6 @@ class TestListAPI(generics.ListAPIView):
     serializer_class = TestSerializer
 
 
-class QuestionCreateAPI(generics.ListCreateAPIView):
-    permission_classes = (permissions.AllowAny, )
-    queryset = Question.objects.all()
-    parser_classes = (JSONParser, MultiPartParser, FormParser)
-    serializer_class = QuestionSerializer
-
-
-class QuestionAPI(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (permissions.AllowAny, )
-    queryset = Question.objects.all()
-    parser_classes = (JSONParser, MultiPartParser, FormParser)
-    serializer_class = QuestionSerializer
-
-
-class QuestionListAPI(generics.ListAPIView):
-    permission_classes = (permissions.AllowAny, )
-    queryset = Question.objects.all()
-    parser_classes = (JSONParser, MultiPartParser, FormParser)
-    serializer_class = QuestionSerializer
-
-    def get_queryset(self):
-
-        return Response(
-            {
-
-            }
-        )
-
-
 class ShortcodeCreateAPI(generics.ListCreateAPIView):
     permission_classes = (permissions.AllowAny, )
     queryset = Shortcode.objects.all()
@@ -108,11 +82,64 @@ class UserCreateAPI(generics.ListCreateAPIView):
     serializer_class = CreateUserSerializer
 
 
+class UpdatePassword(APIView):
+    permission_classes = (permissions.AllowAny, )
+    parser_classes = (JSONParser, MultiPartParser, FormParser)
+
+    def put(self, request, pk):
+        user = User.objects.get(pk=pk)
+        print(User)
+        user.set_password(request.data['new_password'])
+        user.save()
+        return Response({
+            "phone": user.phone,
+            "curr_password": request.data['new_password'],
+            "status": True
+        })
+
+
+class UsersList(APIView):
+    permission_classes = (permissions.AllowAny, )
+    parser_classes = (JSONParser, MultiPartParser, FormParser)
+    userfilter = UserFilter()
+    authentication_classes = (
+        CsrfExemptSessionAuthentication, BasicAuthentication)
+
+    def get(self, request):
+
+        data = self.userfilter.get_users(request, 'postgres', '1111')
+        result = {
+            "results": []
+        }
+        for ind, row in enumerate(data):
+            domain = self.request.get_host()
+            path_image = f'/media/{row[4]}'
+            image_url = 'http://{domain}{path}'.format(
+                domain=domain, path=path_image)
+            print(image_url)
+            result['results'].append({
+                "id": row[0],
+                "phone": row[1],
+                "last_name": row[2],
+                "first_name": row[3],
+                "avatar": image_url,
+            })
+        return Response(
+            {
+                "results": result['results']
+            }
+        )
+
+
 class UserAPI(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (permissions.AllowAny, )
     queryset = User.objects.all()
     parser_classes = (JSONParser, MultiPartParser, FormParser)
-    serializer_class = UserSerializer
+    serializer_class = CreateUserSerializer
+
+    def partial_update(self, request, pk, *args, **kwargs):
+
+        return self.update(request, *args, **kwargs)
 
 
 class UserListAPI(generics.ListAPIView):

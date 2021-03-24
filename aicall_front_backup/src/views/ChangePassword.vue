@@ -2,11 +2,11 @@
   <b-form @submit="goSave($event)">
     <div class="form__item">
       <span class="form__label">Текущий логин</span>
-      {{changePassword.login}}
+      {{changePassword.phone}}
     </div>
     <div class="form__item">
       <span class="form__label">Текущий пароль</span>
-      {{changePassword.password}}
+      {{curr_password}}
     </div>
     <div class="form__item">
       <span class="form__label">Новый пароль</span>
@@ -49,11 +49,12 @@ export default {
       id: null,
       changePassword: {
         login: null,
-        password: null,
+        curr_password: null,
         new_password: null,
         password_confirm: null,
       },
-      admin:{}
+      admin:{},
+      curr_password: localStorage.getItem('password') || null,
     };
   },
   created() {
@@ -61,14 +62,16 @@ export default {
       { text: "Главная", to: { name: "home" } },
       { text: "Изменить пароль", to: { name: "change-password" } },
     ];
+
     new Promise((resolve, reject) => {
-            axios.get(`/api/user/admin/profile/`, {
+            axios.get(`/api/user/get-user/1`, {
               headers: {
                 Authorization: 'tset'
               }
             })
                 .then(response => {
                     console.log(response)
+                    
                     this.changePassword = response.data 
                     resolve(response.data)
                 })
@@ -91,8 +94,8 @@ export default {
         });
         console.log(obj)
         axios
-          .post(
-            "/api/user/change-password/",
+          .put(
+            "/api/user/update-password/1",
             formData,
             {
               headers: {
@@ -102,8 +105,10 @@ export default {
           )
           .then(function(response) {
             console.log(response)
+            if (response.data.status) localStorage.setItem('password', obj.new_password);
             Vue.templateShowSuccess();
-            self.changePassword = response.data
+            self.changePassword = response.data;
+            self.curr_password = response.data.curr_password;
           })
           .catch(function(response) {
             console.log(response);

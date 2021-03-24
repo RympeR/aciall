@@ -30,6 +30,6 @@ urlpatterns = [
     path('update-talk-theme/<int:pk>', TalkThemesUpdate.as_view()),
     path('delete-talk-theme/<int:pk>', TalkThemesAPI.as_view()),
     path('get-talk-theme/<int:pk>', TalkThemesAPI.as_view()),
-    path('get-talk-themes', TalkThemesAPI.as_view()),
+    path('get-talk-themes', TalkThemesListAPI.as_view()),
 
 ]

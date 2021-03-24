@@ -15,23 +15,17 @@
             </div>
             <div class="sidebar__item">
                 <span class="sidebar__icon">
-                    <img src="@/assets/img/icons/12.png" alt="">
-                </span>
-                <b-link class="sidebar__link" :to="{name: 'questions'}">Вопросы</b-link>
-            </div>
-            <div class="sidebar__item">
-                <span class="sidebar__icon">
                     <img src="@/assets/img/icons/63.png" alt="">
                 </span>
                 <b-link class="sidebar__link" :to="{name: 'shortcodes'}">Психотипы</b-link>
             </div>
+            <hr>
             <div class="sidebar__item">
                 <span class="sidebar__icon">
                     <img src="@/assets/img/icons/23.png" alt="">
                 </span>
                 <b-link class="sidebar__link" :to="{name: 'countries'}">Страны</b-link>
             </div>
-            <hr>
             <div class="sidebar__item">
                 <span class="sidebar__icon">
                     <img src="@/assets/img/icons/65.png" alt="">
