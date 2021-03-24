@@ -42,13 +42,25 @@
                 <span class="sidebar__icon">
                     <img src="@/assets/img/icons/45.png" alt="">
                 </span>
-                <b-link class="sidebar__link" :to="{name: 'actionareas'}">Сферы интересов</b-link>
+                <b-link class="sidebar__link" :to="{name: 'actionareas'}">Сфера деятельности</b-link>
             </div>
             <div class="sidebar__item">
                 <span class="sidebar__icon">
                     <img src="@/assets/img/icons/45.png" alt="">
                 </span>
                 <b-link class="sidebar__link" :to="{name: 'talkthemes'}">Темы для разговоров</b-link>
+            </div>
+            <div class="sidebar__item">
+                <span class="sidebar__icon">
+                    <img src="@/assets/img/icons/45.png" alt="">
+                </span>
+                <b-link class="sidebar__link" :to="{name: 'talkthemes'}">Характеристики</b-link>
+            </div>
+            <div class="sidebar__item">
+                <span class="sidebar__icon">
+                    <img src="@/assets/img/icons/45.png" alt="">
+                </span>
+                <b-link class="sidebar__link" :to="{name: 'talkthemes'}">Секреты</b-link>
             </div>
             <hr>
             <div class="sidebar__item">

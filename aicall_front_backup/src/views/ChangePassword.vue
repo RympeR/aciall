@@ -4,16 +4,16 @@
       <span class="form__label">Текущий логин</span>
       {{changePassword.phone}}
     </div>
-    <div class="form__item">
+    <!-- <div class="form__item">
       <span class="form__label">Текущий пароль</span>
       {{curr_password}}
-    </div>
+    </div> -->
     <div class="form__item">
       <span class="form__label">Новый пароль</span>
       <div class="form__control">
         <b-form-input
           class="short"
-          type="text"
+          type="password"
           v-model="changePassword.new_password"
         />
       </div>
@@ -23,7 +23,7 @@
       <div class="form__control">
         <b-form-input
           class="short"
-          type="text"
+          type="password"
           v-model="changePassword.password_confirm"
         />
       </div>

@@ -60,7 +60,7 @@ export default {
     created() {
         this.$store.state.breadcrumbs = [
             {text: 'Главная', to: {name: 'home'}},
-            {text: 'Сферы интересов', to: {name: 'actionareas'}},
+            {text: 'Сфера деятельности', to: {name: 'actionareas'}},
         ];
         this.getActionAreas().then(list => {
                 console.log(list)

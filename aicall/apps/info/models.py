@@ -59,7 +59,7 @@ class TalkThemes(models.Model):
         blank=True
     )
     
-    image_svg = models.ImageField(
+    image_svg = models.FloatField(
         verbose_name='ImageSVG',
         null=True,
         blank=True

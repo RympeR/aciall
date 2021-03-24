@@ -66,13 +66,13 @@ export default {
         if (this.id){
             this.$store.state.breadcrumbs = [
                 {text: 'Главная', to: {name: 'home'}},
-                {text: 'Сфераы интересов', to: {name: 'actionareas'}},
+                {text: 'Сфера деятельности', to: {name: 'actionareas'}},
                 {text: 'Редактировать', to: {name: 'actionarea-update', params: {id: this.id}}}
             ];
         }else{
             this.$store.state.breadcrumbs = [
                 {text: 'Главная', to: {name: 'home'}},
-                {text: 'Сфера интереса', to: {name: 'actionareas'}},
+                {text: 'Сфера деятельности', to: {name: 'actionareas'}},
                 {text: 'Создать', to: {name: 'actionarea-create'}}
             ];
         }
