@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Country, Language, Education, ActionArea, TalkThemes
+from .models import Country, Language, Education, ActionArea, TalkThemes, PositiveSide, NegativeSide
 
 
 class CountrySerializer(serializers.ModelSerializer):
@@ -7,6 +7,18 @@ class CountrySerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = Country
+
+class NegativeSideSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        fields = '__all__'
+        model = NegativeSide
+
+class PositiveSideSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        fields = '__all__'
+        model = PositiveSide
 
 
 class EducationSerializer(serializers.ModelSerializer):

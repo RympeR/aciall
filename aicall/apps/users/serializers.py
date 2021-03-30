@@ -103,3 +103,52 @@ class TestSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = Test
+
+class GetCharacteristicSerializer(serializers.ModelSerializer):
+
+    sender = UserSerializer()
+    reciever = UserSerializer()
+    positive_sides = PositiveSideSerializer()
+    negative_sides = NegativeSideSerializer()
+    class Meta:
+        fields = '__all__'
+        model = Characteristic
+
+class CharacteristicSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = Characteristic
+
+class CharacteristicPartialSerializer(serializers.ModelSerializer):
+    sender_name = serializers.CharField(required=False)
+    reciever_name = serializers.CharField(required=False)
+    class Meta:
+        fields = ('sender_name', 'reciever_name')
+        model = Characteristic
+
+class GetCharacteristicSerializer(serializers.ModelSerializer):
+
+    sender = UserSerializer()
+    reciever = UserSerializer()
+    positive_sides = PositiveSideSerializer(many=True)
+    negative_sides = NegativeSideSerializer(many=True)
+    class Meta:
+        fields = '__all__'
+        model = Characteristic
+
+class CharacteristicSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = Characteristic
+
+class GetUserPhoneSerializer(serializers.ModelSerializer):
+
+    owner = UserSerializer()
+    class Meta:
+        fields = '__all__'
+        model = UserContanctPhone
+
+class UserPhoneSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = UserContanctPhone

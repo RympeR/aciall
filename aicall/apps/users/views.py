@@ -1,3 +1,4 @@
+from django.http import request
 from rest_framework import generics, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -8,10 +9,17 @@ from rest_framework.parsers import MultiPartParser, JSONParser, FormParser
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.authtoken.models import Token
 from .raw_sql import UserFilter
+from .psychotype import Psycho
+
+psycho = Psycho()
+
+
 class CsrfExemptSessionAuthentication(SessionAuthentication):
 
     def enforce_csrf(self, request):
         return
+
+
 class PhoneCreateAPI(generics.ListCreateAPIView):
     permission_classes = (permissions.AllowAny, )
     queryset = Phone.objects.all()
@@ -199,3 +207,82 @@ class UserPsycho(generics.RetrieveUpdateAPIView):
         user.psycho_type = shortcode
         user.save()
         return self.update(request, *args, **kwargs)
+
+
+class ContactPhoneCreateAPI(generics.ListCreateAPIView):
+    permission_classes = (permissions.AllowAny, )
+    queryset = UserContanctPhone.objects.all()
+    parser_classes = (JSONParser, MultiPartParser, FormParser)
+    serializer_class = UserPhoneSerializer
+
+
+class ContactPhoneAPI(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (permissions.AllowAny, )
+    queryset = UserContanctPhone.objects.all()
+    parser_classes = (JSONParser, MultiPartParser, FormParser)
+    serializer_class = UserPhoneSerializer
+
+
+class GetContactPhoneAPI(generics.ListAPIView):
+    permission_classes = (permissions.AllowAny, )
+    queryset = UserContanctPhone.objects.all()
+    parser_classes = (JSONParser, MultiPartParser, FormParser)
+    serializer_class = GetUserPhoneSerializer
+
+    def get_queryset(self):
+        user = Token.objects.get(
+            key=self.request.headers['Authorization']).user
+        phones = UserContanctPhone.objects.filter(owner=user)
+        return phones
+
+
+class CharacteristicListAPI(generics.ListAPIView):
+    permission_classes = (permissions.AllowAny, )
+    queryset = Characteristic.objects.all()
+    parser_classes = (JSONParser, MultiPartParser, FormParser)
+    serializer_class = GetCharacteristicSerializer
+
+
+class CharacteristicCreateAPI(generics.ListCreateAPIView):
+    permission_classes = (permissions.AllowAny, )
+    queryset = Characteristic.objects.all()
+    parser_classes = (JSONParser, MultiPartParser, FormParser)
+    serializer_class = CharacteristicSerializer
+
+    def perform_create(self, serializer):
+        sender = self.request.data['sender']
+        reciever = self.request.data['reciever']
+        sender = User.objects.get(pk=sender).psycho_type
+        reciever = User.objects.get(pk=reciever).psycho_type
+        compatimble = psycho.get_compatible(
+            sender,
+            reciever
+        )
+        data = dict(request.data)
+        data['compatible'] = bool(compatimble)
+        serializer.save(data=data)
+
+
+class CharacteristicAPI(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (permissions.AllowAny, )
+    queryset = Characteristic.objects.all()
+    parser_classes = (JSONParser, MultiPartParser, FormParser)
+    serializer_class = GetCharacteristicSerializer
+
+    def partial_update(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+
+
+class CharacteristicListAPI(generics.ListAPIView):
+    permission_classes = (permissions.AllowAny, )
+    queryset = Characteristic.objects.all()
+    parser_classes = (JSONParser, MultiPartParser, FormParser)
+    serializer_class = GetUserPhoneSerializer
+
+
+class UpdateCharacteristic(generics.UpdateAPIView):
+    permission_classes = (permissions.AllowAny, )
+    parser_classes = (JSONParser, MultiPartParser, FormParser)
+    queryset = Characteristic.objects.all()
+    serializer_class = CharacteristicSerializer

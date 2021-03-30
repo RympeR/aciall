@@ -128,3 +128,44 @@ class TalkThemesListAPI(generics.ListAPIView):
         context = super(generics.ListAPIView, self).get_serializer_context()
         context.update({"request": self.request})
         return context
+
+
+class PositiveSideCreateAPI(generics.ListCreateAPIView):
+    permission_classes = (permissions.AllowAny, )
+    queryset = PositiveSide.objects.all()
+    parser_classes = (JSONParser, MultiPartParser, FormParser)
+    serializer_class = PositiveSideSerializer
+
+
+class PositiveSideAPI(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (permissions.AllowAny, )
+    queryset = PositiveSide.objects.all()
+    parser_classes = (JSONParser, MultiPartParser, FormParser)
+    serializer_class = PositiveSideSerializer
+
+
+class PositiveSideListAPI(generics.ListAPIView):
+    permission_classes = (permissions.AllowAny, )
+    queryset = PositiveSide.objects.all()
+    parser_classes = (JSONParser, MultiPartParser, FormParser)
+    serializer_class = PositiveSideSerializer
+
+class NegativeSideCreateAPI(generics.ListCreateAPIView):
+    permission_classes = (permissions.AllowAny, )
+    queryset = NegativeSide.objects.all()
+    parser_classes = (JSONParser, MultiPartParser, FormParser)
+    serializer_class = NegativeSideSerializer
+
+
+class NegativeSideAPI(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (permissions.AllowAny, )
+    queryset = NegativeSide.objects.all()
+    parser_classes = (JSONParser, MultiPartParser, FormParser)
+    serializer_class = NegativeSideSerializer
+
+
+class NegativeSideListAPI(generics.ListAPIView):
+    permission_classes = (permissions.AllowAny, )
+    queryset = NegativeSide.objects.all()
+    parser_classes = (JSONParser, MultiPartParser, FormParser)
+    serializer_class = NegativeSideSerializer

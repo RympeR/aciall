@@ -9,6 +9,7 @@ from unixtimestampfield.fields import UnixTimeStampField
 from dateutil.relativedelta import relativedelta
 import datetime
 
+
 SEX = [
     (2, "Мужской"),
     (1, "Женский"),
@@ -159,3 +160,16 @@ class Test(models.Model):
     question = models.ForeignKey(Question, related_name='test_question', on_delete=models.CASCADE)
     answer = models.IntegerField()
 
+class Characteristic(models.Model):
+    sender = models.ForeignKey(User, related_name='characteristic_sender', on_delete=models.CASCADE)
+    reciever = models.ForeignKey(User, related_name='characteristic_reciever', on_delete=models.CASCADE)
+    grade = models.IntegerField(verbose_name='Rating grade')
+    sender_name = models.CharField('Characterisric sender name', max_length=100)
+    reciever_name = models.CharField('Characterisric sender name', max_length=100, default=str(datetime.datetime.timestamp(datetime.datetime.now())))
+    positive_sides = models.ManyToManyField(PositiveSide, related_name='Characteristic_positive_sides')
+    negative_sides = models.ManyToManyField(NegativeSide, related_name='Characteristic_negative_sides')
+    compatible = models.BooleanField(default=False)
+
+class UserContanctPhone(models.Model):
+    owner = models.ForeignKey(User, related_name='phone_ownder', on_delete=models.CASCADE)
+    phone = models.CharField('User phone', max_length=15)

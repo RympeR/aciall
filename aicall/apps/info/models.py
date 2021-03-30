@@ -72,3 +72,10 @@ class TalkThemes(models.Model):
     def __str__(self):
         return self.name_ru
 
+class PositiveSide(models.Model):
+    name_ru = models.CharField("Positive side ru", max_length=255)
+    name_eng = models.CharField("Positive side eng", max_length=255)
+
+class NegativeSide(models.Model):
+    name_ru = models.CharField("Negative side ru", max_length=255)
+    name_eng = models.CharField("Negative side eng", max_length=255)

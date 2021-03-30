@@ -13,6 +13,10 @@ import shortcode from './modules/shortcode'
 import language from './modules/language'
 import education from './modules/education'
 
+import positive_sides from './modules/positive_sides'
+import negative_sides from './modules/negative_sides'
+import characteristics from './modules/characteristics'
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -104,5 +108,8 @@ export default new Vuex.Store({
         shortcode,
         language,
         education,
+        positive_sides,
+        negative_sides,
+        characteristics,
     }
 })
