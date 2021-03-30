@@ -59,7 +59,7 @@ class TalkThemes(models.Model):
         blank=True
     )
     
-    image_svg = models.FloatField(
+    image_svg = models.FileField(
         verbose_name='ImageSVG',
         null=True,
         blank=True
@@ -76,6 +76,19 @@ class PositiveSide(models.Model):
     name_ru = models.CharField("Positive side ru", max_length=255)
     name_eng = models.CharField("Positive side eng", max_length=255)
 
+    class Meta:
+        verbose_name = 'позитивная сторона'
+        verbose_name_plural = 'позитивные стороны'
+    
+    def __str__(self):
+        return self.name_ru
 class NegativeSide(models.Model):
     name_ru = models.CharField("Negative side ru", max_length=255)
     name_eng = models.CharField("Negative side eng", max_length=255)
+
+    class Meta:
+        verbose_name = 'негативная сторона'
+        verbose_name_plural = 'негативные стороны'
+    
+    def __str__(self):
+        return self.name_ru

@@ -171,5 +171,5 @@ class Characteristic(models.Model):
     compatible = models.BooleanField(default=False)
 
 class UserContanctPhone(models.Model):
-    owner = models.ForeignKey(User, related_name='phone_ownder', on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, related_name='phone_owner', on_delete=models.CASCADE)
     phone = models.CharField('User phone', max_length=15)

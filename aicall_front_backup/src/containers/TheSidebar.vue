@@ -19,6 +19,12 @@
                 </span>
                 <b-link class="sidebar__link" :to="{name: 'shortcodes'}">Психотипы</b-link>
             </div>
+            <div class="sidebar__item">
+                <span class="sidebar__icon">
+                    <img src="@/assets/img/icons/45.png" alt="">
+                </span>
+                <b-link class="sidebar__link" :to="{name: 'characteristics'}">Характеристики</b-link>
+            </div>
             <hr>
             <div class="sidebar__item">
                 <span class="sidebar__icon">
@@ -31,6 +37,18 @@
                     <img src="@/assets/img/icons/65.png" alt="">
                 </span>
                 <b-link class="sidebar__link" :to="{name: 'languages'}">Языки</b-link>
+            </div>
+            <div class="sidebar__item">
+                <span class="sidebar__icon">
+                    <img src="@/assets/img/icons/65.png" alt="">
+                </span>
+                <b-link class="sidebar__link" :to="{name: 'positive-sides'}">Позитивные стороны</b-link>
+            </div>
+            <div class="sidebar__item">
+                <span class="sidebar__icon">
+                    <img src="@/assets/img/icons/65.png" alt="">
+                </span>
+                <b-link class="sidebar__link" :to="{name: 'negative-sides'}">Негативные стороны</b-link>
             </div>
             <div class="sidebar__item">
                 <span class="sidebar__icon">
@@ -50,12 +68,7 @@
                 </span>
                 <b-link class="sidebar__link" :to="{name: 'talkthemes'}">Темы для разговоров</b-link>
             </div>
-            <div class="sidebar__item">
-                <span class="sidebar__icon">
-                    <img src="@/assets/img/icons/45.png" alt="">
-                </span>
-                <b-link class="sidebar__link" :to="{name: 'talkthemes'}">Характеристики</b-link>
-            </div>
+            
             <div class="sidebar__item">
                 <span class="sidebar__icon">
                     <img src="@/assets/img/icons/45.png" alt="">

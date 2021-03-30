@@ -278,7 +278,7 @@ class CharacteristicListAPI(generics.ListAPIView):
     permission_classes = (permissions.AllowAny, )
     queryset = Characteristic.objects.all()
     parser_classes = (JSONParser, MultiPartParser, FormParser)
-    serializer_class = GetUserPhoneSerializer
+    serializer_class = GetCharacteristicSerializer
 
 
 class UpdateCharacteristic(generics.UpdateAPIView):

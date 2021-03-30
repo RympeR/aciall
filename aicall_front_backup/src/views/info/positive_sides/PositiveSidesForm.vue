@@ -66,13 +66,13 @@ export default {
         if (this.id){
             this.$store.state.breadcrumbs = [
                 {text: 'Главная', to: {name: 'home'}},
-                {text: 'Позитивные стороны', to: {name: 'positive_sidess'}},
+                {text: 'Позитивные стороны', to: {name: 'positive-sides'}},
                 {text: 'Редактировать', to: {name: 'positive-sides-update', params: {id: this.id}}}
             ];
         }else{
             this.$store.state.breadcrumbs = [
                 {text: 'Главная', to: {name: 'home'}},
-                {text: 'Позитивные стороны', to: {name: 'positive-sidess'}},
+                {text: 'Позитивные стороны', to: {name: 'positive-sides'}},
                 {text: 'Создать', to: {name: 'positive-sides-create'}}
             ];
         }

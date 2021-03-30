@@ -17,11 +17,20 @@ import CountryForm from "@/views/info/country/CountryForm"
 import EducationList from "@/views/info/education/EducationList"
 import EducationForm from "@/views/info/education/EducationForm"
 
+import PositiveSidesList from "@/views/info/positive_sides/PositiveSidesList"
+import PositiveSidesForm from "@/views/info/positive_sides/PositiveSidesForm"
+
+import NegativeSidesList from "@/views/info/negative_sides/NegativeSidesList"
+import NegativeSidesForm from "@/views/info/negative_sides/NegativeSidesForm"
+
 import LanguageList from "@/views/info/language/LanguageList"
 import LanguageForm from "@/views/info/language/LanguageForm"
 
 import ShortcodeList from "@/views/user/shortcode/ShortcodeList"
 import ShortcodeForm from "@/views/user/shortcode/ShortcodeForm"
+
+import CharacteristicsList from "@/views/user/characteristics/CharacteristicsList"
+import CharacteristicsForm from "@/views/user/characteristics/CharacteristicsForm"
 
 
 import ActionAreaList from "@/views/info/actionarea/ActionAreaList"
@@ -245,7 +254,74 @@ export default new Router({
 					}
 				},
 
+				{
+					path: 'info/positive-side/create',
+					name: 'positive-sides-create',
+					component: PositiveSidesForm,
+					meta: {
+						requiresAuth: true
+					}
+				},
+				{
+					path: 'info/positive-side',
+					name: 'positive-sides',
+					component: PositiveSidesList,
+					meta: {
+						requiresAuth: true
+					},
+				},
+				{
+					path: 'info/positive-side/update/:id',
+					name: 'positive-sides-update',
+					component: PositiveSidesForm,
+					meta: {
+						requiresAuth: true
+					}
+				},
+				{
+					path: 'info/negative-side/create',
+					name: 'negative-sides-create',
+					component: NegativeSidesForm,
+					meta: {
+						requiresAuth: true
+					}
+				},
+				{
+					path: 'info/negative-side',
+					name: 'negative-sides',
+					component: NegativeSidesList,
+					meta: {
+						requiresAuth: true
+					},
+				},
+				{
+					path: 'info/negative-side/update/:id',
+					name: 'negative-sides-update',
+					component: NegativeSidesForm,
+					meta: {
+						requiresAuth: true
+					}
+				},
+				{
+					path: 'info/characteristics',
+					name: 'characteristics',
+					component: CharacteristicsList,
+					meta: {
+						requiresAuth: true
+					},
+				},
+				{
+					path: 'info/characteristics/update/:id',
+					name: 'characteristics-update',
+					component: CharacteristicsForm,
+					meta: {
+						requiresAuth: true
+					}
+				},
+
 				
+				
+
 			]
 		},
 	],

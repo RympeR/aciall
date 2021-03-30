@@ -19,7 +19,7 @@ const mutations = {
 const actions = {
     getList({commit}) {
         return new Promise((resolve, reject) => {
-            axios.get(process.env.VUE_APP_HOST+'/api/containers/get-characteristics-list', {
+            axios.get(process.env.VUE_APP_HOST+'/api/user/get-characteristics-list', {
                     // params: this.linesSearch,
                     headers: {
                         Authorization: "tset",
@@ -28,25 +28,23 @@ const actions = {
                 .then(response => {
                     let list = response.data.results;
                     console.log(list)
-                   
                     list.forEach((el) => {
-                        el.phone = {
-                            id: el.user.id,
-                            phone: el.user.phone
-                        }
-                        el.user = {
-                            id: el.user.id,
-                            name: el.user.name,
-                        }
-                        el.amount = {
-                            amount: el.amount,
-                        };
-                        console.log(el.date)
-                        el.date = {
-                            date: el.date.start + ' - ' + el.date.end
-                        };
-                        
+                        el.first_user_phone = el.sender.phone
+                        el.first_user_name = el.sender.username
+                        el.sec_user_phone = el.reciever.phone
+                        el.sec_user_name = el.reciever.username
+                        el.positive_side = []
+                        el.negative_side = []
+                        el.positive_sides.forEach((elem)=>{
+                            el.positive_side.push(elem.name_ru)
+                        } )
+                        el.positive_side = el.positive_side.join(', ')
+                        el.negative_sides.forEach((elem)=>{
+                            el.negative_side.push(elem.name_ru)
+                        } )
+                        el.negative_side = el.negative_side.join(', ')
                     });
+                    
                     commit('setList', list);
 
                     resolve(list);
@@ -59,26 +57,26 @@ const actions = {
     },
     getItem({commit}, id) {
         return new Promise((resolve, reject) => {
-            axios.get(process.env.VUE_APP_HOST + `/api/containers/get-characteristics/${id}/`, {
+            axios.get(process.env.VUE_APP_HOST + `/api/user/get-characteristics/${id}`, {
                     // params: this.linesSearch,
                     headers: {
                         Authorization: "tset",
                     }
                 })
                 .then(response => {
-                    var date_start = new Date(response.data.request_date * 1000);
-                    var date_end = new Date(response.data.end_date * 1000);
-                    var year_start = date_start.getFullYear();
-                    var month_start = ("0" + (date_start.getMonth() + 1)).slice(-2);
-                    var day_start = ("0" + date_start.getDate()).slice(-2);
-                    var year_end = date_end.getFullYear();
-                    var month_end = ("0" + (date_end.getMonth() + 1)).slice(-2);
-                    var day_end = ("0" + date_end.getDate()).slice(-2);
-                    response.data.request_date=year_start + "-" + month_start + "-" + day_start 
-                    response.data.end_date=year_end + "-" + month_end + "-" + day_end
-                    console.log(response.data)
-                    commit('setItem', response.data);
-                    resolve(response.data)
+                    let item = response.data;
+                    item.positive_side = []
+                    item.negative_side = []
+                    item.positive_sides.forEach((elem)=>{
+                        item.positive_side.push(elem.name_ru)
+                    } )
+                    item.positive_side = item.positive_side.join(', ')
+                    item.negative_sides.forEach((elem)=>{
+                        item.negative_side.push(elem.name_ru)
+                    } )
+                    item.negative_side = item.negative_side.join(', ')
+                    commit('setItem', item);
+                    resolve(item)
                 })
                 .catch(response => {
                     reject(response.error);
@@ -89,7 +87,7 @@ const actions = {
         let confirmDelete = confirm('Вы действительно хотите удалить эту характеристику?');
         if (confirmDelete) {
             return new Promise((resolve, reject) => {
-                axios.delete(`${process.env.VUE_APP_HOST}/api/containers/delete-characteristics/${id}/`,
+                axios.delete(`${process.env.VUE_APP_HOST}/api/user/delete-characteristics/${id}`,
                 {
                     headers: {
                       Authorization: "tset",
@@ -110,9 +108,9 @@ const actions = {
     getFilteredItems({commit, state}, obj){
         console.log(obj)
         console.log(state)
-        var str = `${process.env.VUE_APP_HOST}/api/containers/get-characteristics-list?`;
+        var str = `${process.env.VUE_APP_HOST}/api/user/get-characteristics-list?`;
         for (var key in obj) {
-            if (str != `${process.env.VUE_APP_HOST}/api/containers/get-characteristics-list?`) {
+            if (str != `${process.env.VUE_APP_HOST}/api/user/get-characteristics-list?`) {
                 str += "&";
             }
             str += key + "=" + encodeURIComponent(obj[key]);
@@ -123,25 +121,23 @@ const actions = {
             .get(str)
             .then(response => {
                 let list = response.data.results;
-                
-                console.log(list)
-                
                 list.forEach((el) => {
-                    el.phone = {
-                        id: el.user.id,
-                        phone: el.user.phone
-                    }
-                    el.user = {
-                        id: el.user.id,
-                        name: el.user.name,
-                    }
-                    el.amount = {
-                        amount: el.amount,
-                    };
-                    el.date = {
-                        date: el.date.start + ' - ' + el.date.end
-                    };
+                    el.first_user_phone = el.sender.phone
+                    el.first_user_name = el.user.username
+                    el.sec_user_phone = el.reciever.phone
+                    el.sec_user_name = el.reciever.username
+                    el.positive_side = []
+                    el.negative_side = []
+                    el.positive_sides.forEach((elem)=>{
+                        el.positive_side.push(elem.name_ru)
+                    } )
+                    el.positive_side = el.positive_side.join(', ')
+                    el.negative_sides.forEach((elem)=>{
+                        el.negative_side.push(elem.name_ru)
+                    } )
+                    el.negative_side = el.negative_side.join(', ')
                 });
+                console.log(list)
                 commit('setList', list);
                 resolve(list);
             })
@@ -167,7 +163,7 @@ const actions = {
         if (obj.id) {
             return new Promise((resolve, reject) => {
                 axios
-                    .put(process.env.VUE_APP_HOST + '/api/containers/update-characteristics/' + obj.id + '/', formData, {
+                    .put(process.env.VUE_APP_HOST + '/api/user/update-characteristics/' + obj.id, formData, {
                             headers: {
                                 Authorization: "tset",
                                 // 'Content-Type': 'multipart/form-data'

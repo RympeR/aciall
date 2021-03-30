@@ -14,12 +14,12 @@ urlpatterns = [
     path('get-contact-phone/<int:pk>', ContactPhoneAPI.as_view()),
     path('get-contact-phones', GetContactPhoneAPI.as_view()),
     
-    path('create-chararcteristics/', CharacteristicCreateAPI.as_view()),
-    path('update-chararcteristics/<int:pk>', UpdateCharacteristic.as_view()),
-    path('delete-chararcteristics/<int:pk>', CharacteristicAPI.as_view()),
-    path('get-chararcteristics/<int:pk>', CharacteristicAPI.as_view()),
-    path('get-chararcteristics-list', CharacteristicListAPI.as_view()),
-    
+    path('create-characteristics/', CharacteristicCreateAPI.as_view()),
+    path('update-characteristics/<int:pk>', UpdateCharacteristic.as_view()),
+    path('delete-characteristics/<int:pk>', CharacteristicAPI.as_view()),
+    path('get-characteristics/<int:pk>', CharacteristicAPI.as_view()),
+    path('get-characteristics-list', CharacteristicListAPI.as_view()),
+
     path('create-test/', TestCreateAPI.as_view()),
     path('update-test/<int:pk>', TestAPI.as_view()),
     path('delete-test/<int:pk>', TestAPI.as_view()),
@@ -36,5 +36,11 @@ urlpatterns = [
 
     path('update-psychotype/<int:pk>', UserPsycho.as_view()),
 
-    path('update-password/<int:pk>', UpdatePassword.as_view())
+    path('update-password/<int:pk>', UpdatePassword.as_view()),
+
+    path('create-user/', UserCreateAPI.as_view()),
+    path('update-user/<int:pk>', UserAPI.as_view()),
+    path('delete-user/<int:pk>', UserAPI.as_view()),
+    path('get-user/<int:pk>', UserAPI.as_view()),
+    path('get-users', UserListAPI.as_view()),
 ]
