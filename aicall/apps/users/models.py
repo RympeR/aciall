@@ -73,19 +73,8 @@ class User(AbstractUser):
         unique=True,
         max_length=20
     )
-    avatar = ProcessedImageField(
-        upload_to=user_avatar,
-        verbose_name='ImagePNG',
-        processors=[ResizeToFill(600, 600)],
-        format='PNG',
-        options={'quality': 100},
-        null=True,
-        blank=True
-    )
     username = models.CharField(
         'Username', max_length=255, null=True, blank=True, unique=True)
-    first_name = models.CharField(
-        'First name', max_length=255, null=True, blank=True)
     birthday_date = UnixTimeStampField(verbose_name='Date of birthday in timestamp', null=True, blank=True)
     sex = models.IntegerField('Sex', choices=SEX, null=True, default=0)
     family = models.IntegerField(
@@ -97,6 +86,8 @@ class User(AbstractUser):
     action_area = models.ForeignKey(
         ActionArea, related_name='user_action_area', on_delete=models.DO_NOTHING, null=True, blank=True)
     psycho_type = models.ForeignKey(Shortcode, on_delete=models.DO_NOTHING, null=True, blank=True, default=None)
+    mobile_book_access = models.BooleanField(default=False)
+
     USERNAME_FIELD = 'phone'
     REQUIRED_FIELDS = [
         'username',
@@ -169,6 +160,7 @@ class Characteristic(models.Model):
     positive_sides = models.ManyToManyField(PositiveSide, related_name='Characteristic_positive_sides')
     negative_sides = models.ManyToManyField(NegativeSide, related_name='Characteristic_negative_sides')
     compatible = models.BooleanField(default=False)
+    readed = models.BooleanField(default=False)
 
 class UserContanctPhone(models.Model):
     owner = models.ForeignKey(User, related_name='phone_owner', on_delete=models.CASCADE)

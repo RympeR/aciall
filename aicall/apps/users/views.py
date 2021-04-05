@@ -120,17 +120,10 @@ class UsersList(APIView):
             "results": []
         }
         for ind, row in enumerate(data):
-            domain = self.request.get_host()
-            path_image = f'/media/{row[4]}'
-            image_url = 'http://{domain}{path}'.format(
-                domain=domain, path=path_image)
-            print(image_url)
             result['results'].append({
                 "id": row[0],
                 "phone": row[1],
-                "last_name": row[2],
-                "first_name": row[3],
-                "avatar": image_url,
+                "username": row[2],
             })
         return Response(
             {
@@ -148,6 +141,12 @@ class UserAPI(generics.RetrieveUpdateDestroyAPIView):
     def partial_update(self, request, pk, *args, **kwargs):
 
         return self.update(request, *args, **kwargs)
+
+class GetUserAPI(generics.RetrieveAPIView):
+    permission_classes = (permissions.AllowAny, )
+    queryset = User.objects.all()
+    parser_classes = (JSONParser, MultiPartParser, FormParser)
+    serializer_class = GetUserSerializer
 
 
 class UserListAPI(generics.ListAPIView):
