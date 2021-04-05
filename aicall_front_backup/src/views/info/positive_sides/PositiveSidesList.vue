@@ -60,7 +60,7 @@ export default {
     created() {
         this.$store.state.breadcrumbs = [
             {text: 'Главная', to: {name: 'home'}},
-            {text: 'Негативные стороны', to: {name: 'positive-sides'}},
+            {text: 'Позитивные стороны', to: {name: 'positive-sides'}},
         ];
         this.get_positive_sides().then(list => {
                 console.log(list)

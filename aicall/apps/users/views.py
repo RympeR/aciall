@@ -10,6 +10,7 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.authtoken.models import Token
 from .raw_sql import UserFilter
 from .psychotype import Psycho
+from django.db.models import Q
 
 psycho = Psycho()
 
@@ -88,6 +89,11 @@ class UserCreateAPI(generics.ListCreateAPIView):
     queryset = User.objects.all()
     parser_classes = (JSONParser, MultiPartParser, FormParser)
     serializer_class = CreateUserSerializer
+
+class UserLogin(generics.ApiView):
+    permission_classes = (permissions.AllowAny)
+    queryset = User.objects.all()
+    parser_classes = (JSONParser, MultiPartParser, FormParser)
 
 
 class UpdatePassword(APIView):

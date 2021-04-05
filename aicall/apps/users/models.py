@@ -73,19 +73,8 @@ class User(AbstractUser):
         unique=True,
         max_length=20
     )
-    avatar = ProcessedImageField(
-        upload_to=user_avatar,
-        verbose_name='ImagePNG',
-        processors=[ResizeToFill(600, 600)],
-        format='PNG',
-        options={'quality': 100},
-        null=True,
-        blank=True
-    )
     username = models.CharField(
         'Username', max_length=255, null=True, blank=True, unique=True)
-    first_name = models.CharField(
-        'First name', max_length=255, null=True, blank=True)
     birthday_date = UnixTimeStampField(verbose_name='Date of birthday in timestamp', null=True, blank=True)
     sex = models.IntegerField('Sex', choices=SEX, null=True, default=0)
     family = models.IntegerField(

@@ -39,6 +39,15 @@ class CreateTestSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = Test
 
+class LoginSerializer(serializer.ModelSerializer):
+
+    class Meta:
+        fields = (
+            'username',
+            'password'
+        )
+    
+        model = User
 
 class CreateUserSerializer(serializers.ModelSerializer):
 
@@ -91,6 +100,8 @@ class GetUserSerializer(serializers.ModelSerializer):
             'password',
             'user_permissions',
             'groups',
+            'is_staff',
+            'is_active',
         )
         model = User
 

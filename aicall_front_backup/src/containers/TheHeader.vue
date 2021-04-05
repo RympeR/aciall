@@ -11,7 +11,7 @@
                     <div class="header__actions">
                         <!-- <a class="header__site" href="https://www.studio-maximus.com/" target="_blank">studio-maximus.com</a> -->
                         <!-- <span class="header__sepator">|</span> -->
-                        <a class="header__logged" href='http://api-teus.maximusapp.com/apidocs/'>АПИ документация</a>
+                        <a class="header__logged" href='http://api-aicall.maximusapp.com/apidocs/'>АПИ документация</a>
                         <span class="header__sepator">|</span>
                         <p class="header__logged">Вы вошли как: <span>Администратор</span></p>
                         <span class="header__sepator">|</span>
