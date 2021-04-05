@@ -86,6 +86,8 @@ class User(AbstractUser):
     action_area = models.ForeignKey(
         ActionArea, related_name='user_action_area', on_delete=models.DO_NOTHING, null=True, blank=True)
     psycho_type = models.ForeignKey(Shortcode, on_delete=models.DO_NOTHING, null=True, blank=True, default=None)
+    mobile_book_access = models.BooleanField(default=False)
+
     USERNAME_FIELD = 'phone'
     REQUIRED_FIELDS = [
         'username',
@@ -158,6 +160,7 @@ class Characteristic(models.Model):
     positive_sides = models.ManyToManyField(PositiveSide, related_name='Characteristic_positive_sides')
     negative_sides = models.ManyToManyField(NegativeSide, related_name='Characteristic_negative_sides')
     compatible = models.BooleanField(default=False)
+    readed = models.BooleanField(default=False)
 
 class UserContanctPhone(models.Model):
     owner = models.ForeignKey(User, related_name='phone_owner', on_delete=models.CASCADE)

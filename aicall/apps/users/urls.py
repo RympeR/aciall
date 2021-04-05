@@ -41,6 +41,6 @@ urlpatterns = [
     path('create-user/', UserCreateAPI.as_view()),
     path('update-user/<int:pk>', UserAPI.as_view()),
     path('delete-user/<int:pk>', UserAPI.as_view()),
-    path('get-user/<int:pk>', UserAPI.as_view()),
+    path('get-user/<int:pk>', GetUserAPI.as_view()),
     path('get-users', UserListAPI.as_view()),
 ]

@@ -7,55 +7,51 @@
             </div>
         </div>
         <div class="form__item">
-            <span class="form__label">Фамилия</span>
+            <span class="form__label">Никнейм</span>
             <div class="form__control">
-                <b-form-input class="short"
-                    type="text"
-                    v-model="users.item.last_name"
-                />
+                {{users.item.username}}
             </div>
         </div>
         <div class="form__item">
-            <span class="form__label">Имя</span>
+            <span class="form__label">Страна</span>
             <div class="form__control">
-                <b-form-input class="short"
-                    type="text"
-                    required
-                    v-model="users.item.first_name"
-                />
+                {{users.item.country.name_ru}}
             </div>
         </div>
-
         <div class="form__item">
-            <span class="form__label">Аватар</span>
+            <span class="form__label">Образование</span>
             <div class="form__control">
-                <template v-if="users.item.avatar">
-                    <div class="img__thumbnail">
-                        <div class="img__thumbnail-img">
-                            <b-img :id="`field-${users.item.id}`"
-                                :src="users.item.avatar" width="80"
-                                v-b-modal="'modal__thumbnail' + users.item.id"
-                            />
-                        </div>
-                        <b-modal :id="'modal__thumbnail' + users.item.id" scrollable hide-footer centered class="modal-dialog-auto">
-                            <b-img :src="users.item.avatar" fluid/>
-                        </b-modal>
-                        <b-button type="button" class="media-delete" variant="link" @click="deleteImg">Удалить</b-button>
-                    </div>
-                </template>
-                <template v-else>
-                    <b-form-file
-                        :id="`field-${users.avatar}`"
-                        v-model="users.avatar"
-                        plain
-                    />
-                </template>
+                {{users.item.education.name_ru}}
             </div>
         </div>
-
-        <div class="form__item form__item_submit">
+        <div class="form__item">
+            <span class="form__label">Сфера деятельности</span>
             <div class="form__control">
-                <b-button type="submit" variant="primary">Сохранить</b-button>
+                {{users.item.action_area.name_ru}}
+            </div>
+        </div>
+        <div class="form__item">
+            <span class="form__label">Языки</span>
+            <div class="form__control">
+                {{users.item.country.name_ru}}
+            </div>
+        </div>
+        <div class="form__item">
+            <span class="form__label">Семья</span>
+            <div class="form__control">
+                {{users.item.family}}
+            </div>
+        </div>
+        <div class="form__item">
+            <span class="form__label">Пол</span>
+            <div class="form__control">
+                {{users.item.sex}}
+            </div>
+        </div>
+        <div class="form__item">
+            <span class="form__label">Доступ к телефонной книге</span>
+            <div class="form__control">
+                {{users.item.mobile_book_access}}
             </div>
         </div>
     </b-form>

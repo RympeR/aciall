@@ -81,14 +81,12 @@ class UserFilter:
 
     def get_users(self, request, login, password):
         base_query = '''
-            select id, phone,  last_name, first_name, avatar from users_user
+            select id, phone,  username from users_user
         '''
         try:
             query = base_query
             query = self.add_and_case(
-                request, query, 'first_name', 'users_user.first_name')
-            query = self.add_and_case(
-                request, query,  'last_name', 'users_user.last_name')
+                request, query, 'username', 'users_user.username')
             query = self.add_and_case(
                 request, query, 'phone', 'users_user.phone')
             query += ';'

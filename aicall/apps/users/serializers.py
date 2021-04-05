@@ -1,7 +1,9 @@
 
 from rest_framework import serializers
 from .models import *
-from apps.info.serializers import *
+import sys
+sys.path.append('..')
+from ..info.serializers import *
 
 
 class TimestampField(serializers.Field):
@@ -55,10 +57,12 @@ class CreateUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         exclude = (
+            'is_superuser',
+            'last_name',
+            'is_staff',
             'password',
             'user_permissions',
             'groups',
-            'date_joined',
             'last_login'
         )
         model = User
@@ -73,7 +77,6 @@ class UserSerializer(serializers.ModelSerializer):
             'password',
             'user_permissions',
             'groups',
-            'date_joined',
             'last_login'
         )
         model = User
@@ -92,16 +95,20 @@ class GetUserSerializer(serializers.ModelSerializer):
     languages = LanguageSerializer(required=False, many=True)
     birthday_date = TimestampField(required=False)
     date_joined = TimestampField(required=False)
-    last_login = TimestampField(required=False)
     psycho_type = ShortcodeSerializer(required=False)
 
     class Meta:
         exclude = (
+            'first_name',
+            'last_name',
+            'is_superuser',
+            'is_staff',
             'password',
             'user_permissions',
             'groups',
             'is_staff',
             'is_active',
+            'last_login'
         )
         model = User
 
@@ -144,7 +151,7 @@ class GetCharacteristicSerializer(serializers.ModelSerializer):
     positive_sides = PositiveSideSerializer(many=True)
     negative_sides = NegativeSideSerializer(many=True)
     class Meta:
-        fields = '__all__'
+        exclude = ('sender_name', ) 
         model = Characteristic
 
 class CharacteristicSerializer(serializers.ModelSerializer):

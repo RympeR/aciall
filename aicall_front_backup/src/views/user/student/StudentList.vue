@@ -31,37 +31,21 @@
 									/>
 								</div>
 							</template>
-							<template v-else-if="field.key === 'last_name'">
+							<template v-else-if="field.key === 'username'">
 								{{ field.label }}
 								<input
 									class="input"
 									:placeholder="field.label"
 									@input="getFilteredItems(search)"
-									v-model="search.last_name"
-									list="last_name-list"
+									v-model="search.username"
+									list="username-list"
 								/>
 								<b-form-datalist
-									id="last_name-list"
-									:options="search_existing_list.last_name"
+									id="username-list"
+									:options="search_existing_list.username"
 								></b-form-datalist>
 
 							</template>
-							<template v-else-if="field.key === 'first_name'">
-								<div class="stick-top">{{ field.label }}</div>
-								<input
-									class="input"
-									:placeholder="field.label"
-									@input="getFilteredItems(search)"
-									v-model="search.first_name"
-									list="line-list"
-								/>
-								<b-form-datalist
-									id="line-list"
-									:options="search_existing_list.first_name"
-								>
-								</b-form-datalist>
-							</template>
-							
 							<template v-else-if="field.key === 'actions'">
 							</template>
 							<template v-else>
@@ -121,8 +105,7 @@ export default {
         resetFilters() {
 			this.filtered = false;
 			this.search= {
-				first_name: "",
-				last_name: "",
+				username: "",
 				phone: "",
 			},
 			this.getList().then(list => {
@@ -135,9 +118,7 @@ export default {
             fields: [
                 { key: 'id', label: 'ID', sortable: true},
                 { key: 'phone', label: 'Телефон', sortable: true},
-                { key: 'last_name', label: 'Фамилия', sortable: true},
-                { key: 'first_name', label: 'Имя'},
-                { key: 'avatar', label: 'Аватар'},
+                { key: 'username', label: 'Никнейм', sortable: true},
                 { key: 'actions', label: ''},
             ],
             filtered: false,
@@ -146,13 +127,11 @@ export default {
                 organisation: null
             },
             search: {
-				first_name: "",
-				last_name: "",
+				username: "",
 				phone: "",
 			},
             search_existing_list:{
-				first_name:[],
-				last_name: [],
+				username:[],
 				phone: [],
 			}
         }
@@ -184,12 +163,10 @@ export default {
             console.log(list)
         })
         this.users.list.forEach((e) => {
-			this.search_existing_list.first_name.push(e.first_name)
-			this.search_existing_list.last_name.push(e.last_name)
+			this.search_existing_list.username.push(e.username)
 			this.search_existing_list.phone.push(e.phone)
 		});
-		this.search_existing_list.first_name = [...new Set(this.search_existing_list.first_name)]
-		this.search_existing_list.last_name = [...new Set(this.search_existing_list.last_name)]
+		this.search_existing_list.username = [...new Set(this.search_existing_list.username)]
 		this.search_existing_list.phone = [...new Set(this.search_existing_list.phone)]
     },
 }
