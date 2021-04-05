@@ -77,7 +77,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n    \"count\": 1,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"id\": 1,\n            \"grade\": 3,\n            \"sender_name\": \"1234\",\n            \"reciever_name\": \"444\",\n            \"compatible\": true,\n            \"sender\": 1,\n            \"reciever\": 2,\n            \"positive_sides\": [\n                1\n            ],\n            \"negative_sides\": [\n                1\n            ]\n        }\n    ]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"count\": 1,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"id\": 1,\n            \"grade\": 3,\n            \"sender\": 1,\n            \"reciever\": 2,\n            \"sender_name\": \"1234\",\n            \"reciever_name\": \"444\",\n            \"compatible\": true,\n            \"positive_sides\": [\n                1\n            ],\n            \"negative_sides\": [\n                1\n            ]\n        }\n    ]\n}",
           "type": "json"
         }
       ]
@@ -457,10 +457,10 @@ define({ "api": [
     "groupTitle": "Info"
   },
   {
-    "type": "POST",
-    "url": "/api/user/login/",
-    "title": "1.2 Login",
-    "name": "1.2_Login",
+    "type": "GET",
+    "url": "/api/token/logout/",
+    "title": "1.1 Logout",
+    "name": "1.1_Logout",
     "group": "User",
     "success": {
       "fields": {
@@ -477,7 +477,73 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP 200 OK\nAllow: POST, OPTIONS\nContent-Type: application/json\nVary: Accept\n{\n    \"auth_token\": \"ea69a27ca231c17292d4c1f9db48b8cb2aaa736c\"\n}",
+          "content": "HTTP 200 OK\nAllow: POST, OPTIONS\nContent-Type: application/json",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "\nHTTP 400 Bad Request\nAllow: POST, OPTIONS\nContent-Type: application/json\nVary: Accept\n\n{\n    \"non_field_errors\": [\n        \"Пользователя  с таким токеном не существует.\"\n    ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "apidoc/aicall_rules.py",
+    "groupTitle": "User"
+  },
+  {
+    "type": "POST",
+    "url": "/api/user/login/",
+    "title": "1.2 Login",
+    "name": "1.2_Login",
+    "group": "User",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "username",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "password",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "code",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "auth_token",
+            "description": "<p>or error</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "\nHTTP 200 OK\nAllow: POST, OPTIONS\nContent-Type: application/json\nVary: Accept\n{\n    \"auth_token\": \"ea69a27ca231c17292d4c1f9db48b8cb2aaa736c\"\n}",
           "type": "json"
         }
       ]
@@ -497,7 +563,7 @@ define({ "api": [
   },
   {
     "type": "GET",
-    "url": "/api/user/api-profile-get/",
+    "url": "/api/user/get-user/{user_id}",
     "title": "1.3 Get user",
     "name": "1.3_Get_user",
     "group": "User",
@@ -533,31 +599,10 @@ define({ "api": [
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "Number",
             "optional": false,
-            "field": "is_superuser",
-            "description": ""
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "last_name",
-            "description": ""
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "optional": false,
-            "field": "is_staff",
-            "description": ""
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "optional": false,
-            "field": "is_active",
-            "description": ""
+            "field": "average_rating",
+            "description": "<p>Avg user rating</p>"
           },
           {
             "group": "Success 200",
@@ -577,36 +622,22 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "avatar",
-            "description": ""
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
             "field": "username",
-            "description": ""
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "first_name",
-            "description": ""
+            "description": "<p>Username in app</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
             "field": "sex",
-            "description": ""
+            "description": "<p>0-Не выбран 1-Женский 2-Мужской</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
             "field": "family",
-            "description": ""
+            "description": "<p>Family status 0-Свободен, 1-В браке</p>"
           },
           {
             "group": "Success 200",
@@ -648,7 +679,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n    \"id\": 1,\n    \"birthday_date\": 1616511570.0,\n    \"is_superuser\": true,\n    \"last_name\": \"\",\n    \"is_staff\": true,\n    \"is_active\": true,\n    \"email\": \"admin@gmail.com\",\n    \"phone\": \"admin\",\n    \"avatar\": null,\n    \"username\": \"admin\",\n    \"first_name\": null,\n    \"sex\": 0,\n    \"family\": 0,\n    \"notifications\": false,\n    \"country\": {\n            \"id\": 3,\n            \"name_ru\": \"Россия\",\n            \"name_eng\": \"Russia\"\n        },\n    \"education\": {\n        \"id\": 4,\n        \"name_ru\": \"Магистр\",\n        \"name_eng\": \"Магистр\"\n    },\n    \"action_area\": {\n        \"id\": 3,\n        \"name_ru\": \"Строительство\",\n        \"name_eng\": \"Строительство\"\n    },\n    \"languages\": [\n        {\n            \"id\": 2,\n            \"name_ru\": \"Русский\",\n            \"name_eng\": \"Russain\"\n        },\n        {\n            \"id\": 4,\n            \"name_ru\": \"Украинский\",\n            \"name_eng\": \"Ukrainian\"\n        }\n    ],\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"id\": 1,\n    \"birthday_date\": 1616511570.0,\n    \"date_joined\": 1616518798.0,\n    \"average_rating\": 5.0,\n    \"email\": \"admin@gmail.com\",\n    \"phone\": 2345,\n    \"username\": \"admin\",\n    \"sex\": 0,\n    \"family\": 0,\n    \"notifications\": false,\n    \"mobile_book_access\": false,\n    \"psycho_type\": 5,\n    \"country\": {\n        \"id\": 3,\n        \"name_ru\": \"Россия\",\n        \"name_eng\": \"Russia\"\n    },\n    \"education\": {\n        \"id\": 4,\n        \"name_ru\": \"Магистр\",\n        \"name_eng\": \"Магистр\"\n    },\n    \"action_area\": {\n        \"id\": 3,\n        \"name_ru\": \"Строительство\",\n        \"name_eng\": \"Строительство\"\n    },\n    \"languages\": [\n        {\n            \"id\": 2,\n            \"name_ru\": \"Русский\",\n            \"name_eng\": \"Russain\"\n        },\n        {\n            \"id\": 4,\n            \"name_ru\": \"Украинский\",\n            \"name_eng\": \"Ukrainian\"\n        }\n    ]\n}",
           "type": "json"
         }
       ]
@@ -704,34 +735,6 @@ define({ "api": [
           },
           {
             "group": "Parameter",
-            "type": "Boolean",
-            "optional": false,
-            "field": "is_superuser",
-            "description": ""
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "last_name",
-            "description": ""
-          },
-          {
-            "group": "Parameter",
-            "type": "Boolean",
-            "optional": false,
-            "field": "is_staff",
-            "description": ""
-          },
-          {
-            "group": "Parameter",
-            "type": "Boolean",
-            "optional": false,
-            "field": "is_active",
-            "description": ""
-          },
-          {
-            "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "email",
@@ -739,16 +742,9 @@ define({ "api": [
           },
           {
             "group": "Parameter",
-            "type": "String",
+            "type": "Number",
             "optional": false,
             "field": "phone",
-            "description": ""
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "avatar",
             "description": ""
           },
           {
@@ -762,22 +758,15 @@ define({ "api": [
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "first_name",
-            "description": ""
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
             "field": "sex",
-            "description": ""
+            "description": "<p>0-Не выбран 1-Женский 2-Мужской</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "family",
-            "description": ""
+            "description": "<p>Family status 0-Свободен, 1-В браке</p>"
           },
           {
             "group": "Parameter",
@@ -836,34 +825,6 @@ define({ "api": [
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
-            "optional": false,
-            "field": "is_superuser",
-            "description": ""
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "last_name",
-            "description": ""
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "optional": false,
-            "field": "is_staff",
-            "description": ""
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "optional": false,
-            "field": "is_active",
-            "description": ""
-          },
-          {
-            "group": "Success 200",
             "type": "String",
             "optional": false,
             "field": "email",
@@ -871,16 +832,9 @@ define({ "api": [
           },
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "Number",
             "optional": false,
             "field": "phone",
-            "description": ""
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "avatar",
             "description": ""
           },
           {
@@ -894,22 +848,15 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "first_name",
-            "description": ""
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
             "field": "sex",
-            "description": ""
+            "description": "<p>0-Не выбран 1-Женский 2-Мужской</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
             "field": "family",
-            "description": ""
+            "description": "<p>Family status 0-Свободен, 1-В браке</p>"
           },
           {
             "group": "Success 200",
@@ -951,7 +898,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n    \"id\": 1,\n    \"birthday_date\": 1616511570.0,\n    \"is_superuser\": true,\n    \"last_name\": \"\",\n    \"is_staff\": true,\n    \"is_active\": true,\n    \"email\": \"admin@gmail.com\",\n    \"phone\": \"admin\",\n    \"avatar\": null,\n    \"username\": \"admin\",\n    \"first_name\": null,\n    \"sex\": 0,\n    \"family\": 0,\n    \"notifications\": false,\n    \"country\": {\n            \"id\": 3,\n            \"name_ru\": \"Россия\",\n            \"name_eng\": \"Russia\"\n        },\n    \"education\": {\n        \"id\": 4,\n        \"name_ru\": \"Магистр\",\n        \"name_eng\": \"Магистр\"\n    },\n    \"action_area\": {\n        \"id\": 3,\n        \"name_ru\": \"Строительство\",\n        \"name_eng\": \"Строительство\"\n    },\n    \"languages\": [\n        {\n            \"id\": 2,\n            \"name_ru\": \"Русский\",\n            \"name_eng\": \"Russain\"\n        },\n        {\n            \"id\": 4,\n            \"name_ru\": \"Украинский\",\n            \"name_eng\": \"Ukrainian\"\n        }\n    ],\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"id\": 1,\n    \"birthday_date\": 1616511570.0,\n    \"is_active\": true,\n    \"email\": \"admin@gmail.com\",\n    \"phone\": \"admin\",\n    \"username\": \"admin\",\n    \"sex\": 0,\n    \"family\": 0,\n    \"notifications\": false,\n    \"mobile_book_access\": false,\n    \"psycho_type\": 5,\n    \"country\": {\n            \"id\": 3,\n            \"name_ru\": \"Россия\",\n            \"name_eng\": \"Russia\"\n        },\n    \"education\": {\n        \"id\": 4,\n        \"name_ru\": \"Магистр\",\n        \"name_eng\": \"Магистр\"\n    },\n    \"action_area\": {\n        \"id\": 3,\n        \"name_ru\": \"Строительство\",\n        \"name_eng\": \"Строительство\"\n    },\n    \"languages\": [\n        {\n            \"id\": 2,\n            \"name_ru\": \"Русский\",\n            \"name_eng\": \"Russain\"\n        },\n        {\n            \"id\": 4,\n            \"name_ru\": \"Украинский\",\n            \"name_eng\": \"Ukrainian\"\n        }\n    ]\n    \n}",
           "type": "json"
         }
       ]
@@ -1081,6 +1028,13 @@ define({ "api": [
             "optional": false,
             "field": "phone",
             "description": "<p>User phone</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "questions",
+            "description": "<p>array with 12 objects {&quot;id&quot;:1,&quot;answer&quot;:0},</p>"
           }
         ]
       }
@@ -1090,17 +1044,94 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "birthday_date",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "phone",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "username",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "sex",
+            "description": "<p>0-Не выбран 1-Женский 2-Мужской</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "family",
+            "description": "<p>Family status 0-Свободен, 1-В браке</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "notifications",
+            "description": "<p>are enabled</p>"
+          },
+          {
+            "group": "Success 200",
             "type": "Object",
             "optional": false,
-            "field": "questions",
-            "description": "<p>array with 12 objects {&quot;id&quot;:1,&quot;answer&quot;:0},</p>"
+            "field": "country",
+            "description": "<p>country object</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "education",
+            "description": "<p>education object</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "action_area",
+            "description": "<p>action_area object</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "languages",
+            "description": "<p>languages list</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n    \"id\": 1,\n    \"birthday_date\": 1616511570.0,\n    \"psycho_type\": {\n        \"id\": 5,\n        \"shortcode\": \"ENFJ\",\n        \"name_ru\": \"5\",\n        \"name_eng\": \"5\",\n        \"description_ru\": \"5\",\n        \"description_eng\": \"5\"\n    },\n    \"is_superuser\": true,\n    \"last_name\": \"\",\n    \"is_staff\": true,\n    \"is_active\": true,\n    \"email\": \"admin@gmail.com\",\n    \"phone\": \"admin\",\n    \"avatar\": null,\n    \"username\": \"admin\",\n    \"first_name\": null,\n    \"sex\": 0,\n    \"family\": 0,\n    \"notifications\": false,\n    \"country\": 3,\n    \"education\": 4,\n    \"action_area\": 3,\n    \"languages\": [\n        2,\n        4\n    ]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"id\": 1,\n    \"birthday_date\": 1616511570.0,\n    \"psycho_type\": 5,\n    \"email\": \"admin@gmail.com\",\n    \"phone\": 0953092993,\n    \"username\": \"admin\",\n    \"sex\": 0,\n    \"family\": 0,\n    \"notifications\": false,\n    \"country\": 3,\n    \"education\": 4,\n    \"action_area\": 3,\n    \"languages\": [\n        2,\n        4\n    ]\n}",
           "type": "json"
         }
       ]

@@ -56,7 +56,6 @@ export default {
 				{ key: "sec_user_phone", label: "Получатель телефон" },
 				{ key: "positive_side", label: "Положительные стороны" },
 				{ key: "negative_side", label: "Негативные стороны" },
-				{ key: "sender_name", label: "Имя для отправителя" },
 				{ key: "reciever_name", label: "Имя для получателя"},
 				{ key: "grade", label: "Рейтинг", sortable: true },
 				{ key: "compatible", label: "Своместимы" },

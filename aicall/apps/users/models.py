@@ -73,6 +73,7 @@ class User(AbstractUser):
         unique=True,
         max_length=20
     )
+    first_name = models.CharField(max_length=100, null=True, blank=True)
     username = models.CharField(
         'Username', max_length=255, null=True, blank=True, unique=True)
     birthday_date = UnixTimeStampField(verbose_name='Date of birthday in timestamp', null=True, blank=True)

@@ -71,17 +71,7 @@
           </div>
         </div>
         <div class="form__item">
-          <span class="form__label">Имя для отправителя</span>
-          <div class="form__control">
-            <div class="row">
-              <div class="col-12">
-                {{characteristics.item.sender_name}}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="form__item">
-          <span class="form__label">Имя для поулчателя</span>
+          <span class="form__label">Имя для получателя</span>
           <div class="form__control">
             <div class="row">
               <div class="col-12">

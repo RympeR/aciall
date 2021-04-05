@@ -1,11 +1,40 @@
 
 """
-    @api {POST} /api/user/login/ 1.2 Login
-    @apiName 1.2 Login
+    @api {GET} /api/token/logout/ 1.1 Logout
+    @apiName 1.1 Logout
     @apiGroup User
     @apiSuccess {String} auth_token  or error
 
     @apiSuccessExample {json} Success-Response:
+    HTTP 200 OK
+    Allow: POST, OPTIONS
+    Content-Type: application/json
+    @apiErrorExample {json} Error-Response:
+
+    HTTP 400 Bad Request
+    Allow: POST, OPTIONS
+    Content-Type: application/json
+    Vary: Accept
+
+    {
+        "non_field_errors": [
+            "Пользователя  с таким токеном не существует."
+        ]
+    }
+"""
+"""
+    @api {POST} /api/user/login/ 1.2 Login
+    @apiName 1.2 Login
+    @apiGroup User
+
+
+    @apiParam {String} username
+    @apiParam {String} password
+    @apiParam {String} code
+
+    @apiSuccess {String} auth_token  or error
+    @apiSuccessExample {json} Success-Response:
+
     HTTP 200 OK
     Allow: POST, OPTIONS
     Content-Type: application/json
@@ -28,24 +57,19 @@
 """
 
 """
-    @api {GET} /api/user/api-profile-get/ 1.3 Get user
+    @api {GET} /api/user/get-user/{user_id} 1.3 Get user
     @apiName 1.3 Get user
     @apiGroup User
     @apiHeader {String} Authorization Users unique token
 
     @apiSuccess {Number} id
     @apiSuccess {Number} birthday_date
-    @apiSuccess {Boolean} is_superuser
-    @apiSuccess {String} last_name
-    @apiSuccess {Boolean} is_staff
-    @apiSuccess {Boolean} is_active
+    @apiSuccess {Number} average_rating Avg user rating
     @apiSuccess {String} email
     @apiSuccess {String} phone
-    @apiSuccess {String} avatar
-    @apiSuccess {String} username
-    @apiSuccess {String} first_name
+    @apiSuccess {String} username Username in app
     @apiSuccess {String} sex 0-Не выбран 1-Женский 2-Мужской
-    @apiSuccess {String} family
+    @apiSuccess {String} family Family status 0-Свободен, 1-В браке
     @apiSuccess {Boolean} notifications are enabled
     @apiSuccess {Object} country country object
     @apiSuccess {Object} education education object
@@ -57,20 +81,21 @@
     {
         "id": 1,
         "birthday_date": 1616511570.0,
-        "is_active": true,
+        "date_joined": 1616518798.0,
+        "average_rating": 5.0,
         "email": "admin@gmail.com",
-        "phone": "admin",
-        "avatar": null,
+        "phone": 2345,
         "username": "admin",
-        "first_name": null,
         "sex": 0,
         "family": 0,
         "notifications": false,
+        "mobile_book_access": false,
+        "psycho_type": 5,
         "country": {
-                "id": 3,
-                "name_ru": "Россия",
-                "name_eng": "Russia"
-            },
+            "id": 3,
+            "name_ru": "Россия",
+            "name_eng": "Russia"
+        },
         "education": {
             "id": 4,
             "name_ru": "Магистр",
@@ -92,7 +117,7 @@
                 "name_ru": "Украинский",
                 "name_eng": "Ukrainian"
             }
-        ],
+        ]
     }
     @apiErrorExample {json} Error-Response:
     HTTP/1.1 200 Not Found
@@ -111,17 +136,11 @@
 
     @apiParam {Number} id
     @apiParam {Number} birthday_date
-    @apiParam {Boolean} is_superuser
-    @apiParam {String} last_name
-    @apiParam {Boolean} is_staff
-    @apiParam {Boolean} is_active
     @apiParam {String} email
-    @apiParam {String} phone
-    @apiParam {String} avatar
+    @apiParam {Number} phone
     @apiParam {String} username
-    @apiParam {String} first_name
-    @apiParam {String} sex
-    @apiParam {String} family
+    @apiParam {String} sex 0-Не выбран 1-Женский 2-Мужской
+    @apiParam {String} family Family status 0-Свободен, 1-В браке
     @apiParam {Boolean} notifications are enabled
     @apiParam {Object} country country object
     @apiParam {Object} education education object
@@ -130,17 +149,11 @@
 
     @apiSuccess {Number} id
     @apiSuccess {Number} birthday_date
-    @apiSuccess {Boolean} is_superuser
-    @apiSuccess {String} last_name
-    @apiSuccess {Boolean} is_staff
-    @apiSuccess {Boolean} is_active
     @apiSuccess {String} email
-    @apiSuccess {String} phone
-    @apiSuccess {String} avatar
+    @apiSuccess {Number} phone
     @apiSuccess {String} username
-    @apiSuccess {String} first_name
-    @apiSuccess {String} sex
-    @apiSuccess {String} family
+    @apiSuccess {String} sex 0-Не выбран 1-Женский 2-Мужской
+    @apiSuccess {String} family Family status 0-Свободен, 1-В браке
     @apiSuccess {Boolean} notifications are enabled
     @apiSuccess {Object} country country object
     @apiSuccess {Object} education education object
@@ -152,18 +165,15 @@
     {
         "id": 1,
         "birthday_date": 1616511570.0,
-        "is_superuser": true,
-        "last_name": "",
-        "is_staff": true,
         "is_active": true,
         "email": "admin@gmail.com",
         "phone": "admin",
-        "avatar": null,
         "username": "admin",
-        "first_name": null,
         "sex": 0,
         "family": 0,
         "notifications": false,
+        "mobile_book_access": false,
+        "psycho_type": 5,
         "country": {
                 "id": 3,
                 "name_ru": "Россия",
@@ -190,7 +200,8 @@
                 "name_ru": "Украинский",
                 "name_eng": "Ukrainian"
             }
-        ],
+        ]
+        
     }
     @apiErrorExample {json} Error-Response:
     HTTP/1.1 200 Not Found
@@ -231,30 +242,30 @@
     @apiParam {String} phone User phone
 
 
-    @apiSuccess {Object} questions array with 12 objects {"id":1,"answer":0},
+    @apiParam {Object} questions array with 12 objects {"id":1,"answer":0},
 
+    @apiSuccess {Number} id
+    @apiSuccess {Number} birthday_date
+    @apiSuccess {String} email
+    @apiSuccess {Number} phone
+    @apiSuccess {String} username
+    @apiSuccess {String} sex 0-Не выбран 1-Женский 2-Мужской
+    @apiSuccess {String} family Family status 0-Свободен, 1-В браке
+    @apiSuccess {Boolean} notifications are enabled
+    @apiSuccess {Object} country country object
+    @apiSuccess {Object} education education object
+    @apiSuccess {Object} action_area action_area object
+    @apiSuccess {Object} languages languages list
+    
     @apiSuccessExample Success-Response:
     HTTP/1.1 200 OK
     {
         "id": 1,
         "birthday_date": 1616511570.0,
-        "psycho_type": {
-            "id": 5,
-            "shortcode": "ENFJ",
-            "name_ru": "5",
-            "name_eng": "5",
-            "description_ru": "5",
-            "description_eng": "5"
-        },
-        "is_superuser": true,
-        "last_name": "",
-        "is_staff": true,
-        "is_active": true,
+        "psycho_type": 5,
         "email": "admin@gmail.com",
-        "phone": "admin",
-        "avatar": null,
+        "phone": 0953092993,
         "username": "admin",
-        "first_name": null,
         "sex": 0,
         "family": 0,
         "notifications": false,
@@ -293,11 +304,11 @@
             {
                 "id": 1,
                 "grade": 3,
+                "sender": 1,
+                "reciever": 2,
                 "sender_name": "1234",
                 "reciever_name": "444",
                 "compatible": true,
-                "sender": 1,
-                "reciever": 2,
                 "positive_sides": [
                     1
                 ],

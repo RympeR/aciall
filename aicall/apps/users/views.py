@@ -90,7 +90,7 @@ class UserCreateAPI(generics.ListCreateAPIView):
     parser_classes = (JSONParser, MultiPartParser, FormParser)
     serializer_class = CreateUserSerializer
 
-class UserLogin(generics.ApiView):
+class UserLogin(generics.RetrieveAPIView):
     permission_classes = (permissions.AllowAny)
     queryset = User.objects.all()
     parser_classes = (JSONParser, MultiPartParser, FormParser)

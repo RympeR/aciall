@@ -3,7 +3,7 @@ define({
   "version": "0.1.0",
   "description": "Apidoc for aicall project",
   "title": "Aicall API",
-  "url": "http://api-aicall.maxmiusapp.com",
+  "url": "http://api-aicall.maximusapp.com",
   "order": [
     "User",
     "UserExtensions",
@@ -19,7 +19,7 @@ define({
   "apidoc": "0.3.0",
   "generator": {
     "name": "apidoc",
-    "time": "2021-03-30T18:26:27.245Z",
+    "time": "2021-04-05T09:55:59.144Z",
     "url": "https://apidocjs.com",
     "version": "0.27.1"
   }

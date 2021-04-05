@@ -4,7 +4,7 @@ from .models import *
 import sys
 sys.path.append('..')
 from ..info.serializers import *
-
+from django.db.models import Avg
 
 class TimestampField(serializers.Field):
     def to_representation(self, value):
@@ -41,7 +41,7 @@ class CreateTestSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = Test
 
-class LoginSerializer(serializer.ModelSerializer):
+class LoginSerializer(serializers.ModelSerializer):
 
     class Meta:
         fields = (
@@ -70,7 +70,6 @@ class CreateUserSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
 
     birthday_date = TimestampField(required=False)
-    psycho_type = ShortcodeSerializer(required=False)
 
     class Meta:
         exclude = (
@@ -95,14 +94,16 @@ class GetUserSerializer(serializers.ModelSerializer):
     languages = LanguageSerializer(required=False, many=True)
     birthday_date = TimestampField(required=False)
     date_joined = TimestampField(required=False)
-    psycho_type = ShortcodeSerializer(required=False)
+    average_rating = serializers.SerializerMethodField('user_average_rating')
+
+    def user_average_rating(self, user):
+        return Characteristic.objects.filter(reciever=user).aggregate(Avg('grade'))['grade__avg']
 
     class Meta:
         exclude = (
             'first_name',
             'last_name',
             'is_superuser',
-            'is_staff',
             'password',
             'user_permissions',
             'groups',
